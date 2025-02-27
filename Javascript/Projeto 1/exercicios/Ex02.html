@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercicio 02</title>
+</head>
+<body>
+    <main>
+        <form>
+            <input 
+            class="input-item" 
+            type="text" 
+            placeholder="Digite a tarefa que deseja adicionar">
+            </input>
+
+            <button class="button-item">Salvar tarefa</button>
+        </form>
+        <ul id="ul-container">
+            <li id="li-texto">Teste</li>
+        </ul>
+    </main>
+    <script defer>
+        const btSalvar = document.getElementsByClassName("button-item");
+        const inputTexto = document.getElementsByClassName("input-item");
+
+        btSalvar.addEventListener("click",(evento) => {
+            evento.preventDefault()
+        })
+    </script>
+</body>
+</html>
