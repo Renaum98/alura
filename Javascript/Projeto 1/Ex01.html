@@ -12,6 +12,7 @@
         }
         body{
             height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-image: linear-gradient(to bottom, rgb(229, 229, 229),rgb(25, 25, 25));
             display: flex;
             justify-content: center;
@@ -19,7 +20,8 @@
         }
         main{
             width: 300px;
-            height: 300px;
+            height: fit-content;
+            padding: 20px;
             background-color: rgb(222, 222, 222);
             border-radius: 20px;
             box-shadow: 0 0 10px rgb(210, 210, 210);
@@ -28,23 +30,94 @@
             align-items: center;
             justify-content: center;
         }
+        #container{
+            height: 50%;
+            display: flex;
+            flex-flow: column;
+        }
+        form{
+            display: flex;
+            flex-flow: column;
+        }
+        input{
+            text-align: center;
+            padding: 10px;
+            margin: 10px 0px;
+            border: none;
+            border-radius: 20px;
+            border-bottom: 3px double grey;
+        }
         button{
+            background-color: rgb(82, 82, 82);
+            color: whitesmoke;
             font-size: 1.1rem;
             padding: 10px;
             border-radius: 20px;
-            border: 1px solid grey;
+            border: none;
+            border-bottom: 3px double rgb(152, 152, 152);
             cursor: pointer;
         }
+        p{
+            padding: 5px;
+            background-color: lightgreen;
+            border-radius: 10px;
+            margin: 0px 5px;
+        }
+        ul{
+            list-style-type: none;
+        }
+
     </style>
 </head>
 <body>
     <main>
         <div id="container">
-            <button type="button">Enviar</button>
+            <form>
+                <input type="text" id="id-texto" placeholder="Digite um texto aqui:">
+                <button type="button" id="enviar">Enviar</button>
+            </form>
+            <ul id="lista">
+                <li>
+                    <div class="lista-de-itens">
+                        <input type="checkbox" id="id-checkbox-1">
+                        <p>Lista</p>
+                    </div>
+                </li>
+            </ul>
+            
         </div>
     </main>
     <script defer>
+        const containerLista = document.getElementById("lista");
+        const btEnviar = document.getElementById("enviar");
+        const inputTexto = document.getElementById("id-texto");
+        let contador = 0;
 
+        btEnviar.addEventListener("click",(e) => {
+            e.preventDefault();
+            if (inputTexto.value === ""){
+                alert("Digite um valor valido!")
+                return
+            }
+            const itemDaLista = document.createElement("li");//aqui eu criei uma lista sempre que o botao for acionado
+
+            const containerItemLista = document.createElement("div");//aqui uma div 
+            containerItemLista.classList.add("lista-de-itens");//aqui associei uma classe ao elemento div criado
+
+            const inputCheckbox = document.createElement("input");// aqui eu criei um input
+            inputCheckbox.type = "checkbox";//depois associei o tipo de input como "checkbox"
+            inputCheckbox.id = "checkbox-" + contador++; //agora associei uma nova id com um contador para gerar um id unica
+
+
+            const nomeItem = document.createElement("p");//criei um elemento de p que vai dentro da div
+            nomeItem.innerText = inputTexto.value;// aqui ele ira escrever no paragrafo criado o valor que foi digitado na caixa com o .value
+
+            containerItemLista.appendChild(inputCheckbox); // aqui eu coloquei o input de checkbox como filho da div criada
+            containerItemLista.appendChild(nomeItem); // e aqui a mesma coisa so que o paragrafo
+
+            itemDaLista.appendChild(containerItemLista); //aqui a div foi colocada como filha da li
+            containerLista.appendChild(itemDaLista); // e aqui a li como filha de Ul 
+        })
     </script>
 </body>
 </html>
