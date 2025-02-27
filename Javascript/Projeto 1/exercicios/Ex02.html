@@ -9,23 +9,44 @@
     <main>
         <form>
             <input 
-            class="input-item" 
+            class="input-item"
+            id="input-item" 
             type="text" 
             placeholder="Digite a tarefa que deseja adicionar">
             </input>
 
-            <button class="button-item">Salvar tarefa</button>
+            <button 
+            class="button-item"
+            id="button-item"
+            >Salvar tarefa
+            </button>
+            <button type="reset">Apagar</button>
+            <ul id="container-id" style="list-style-type: none;">
+                
+            </ul>
         </form>
-        <ul id="ul-container">
-            <li id="li-texto">Teste</li>
-        </ul>
     </main>
     <script defer>
-        const btSalvar = document.getElementsByClassName("button-item");
-        const inputTexto = document.getElementsByClassName("input-item");
-
-        btSalvar.addEventListener("click",(evento) => {
+        const btSalvar = document.getElementById("button-item");
+        const inputTexto = document.getElementById("input-item");
+        const containerUl = document.getElementById("container-id");
+        contador = 0;
+        btSalvar.addEventListener("click",(evento)=>{
             evento.preventDefault()
+            const itemLista = document.createElement("li")
+            
+            const check = document.createElement("input");
+            check.type = "checkbox";
+            check.id = "checkbox-" + contador++;
+
+            const itemParagrafo = document.createElement("span");
+            itemParagrafo.innerText =  inputTexto.value;
+
+
+            itemLista.appendChild(check);
+            itemLista.appendChild(itemParagrafo)
+            containerUl.appendChild(itemLista);
+            console.log(inputTexto.value);
         })
     </script>
 </body>
