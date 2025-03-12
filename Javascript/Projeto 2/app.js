@@ -1,5 +1,5 @@
-alert("Ola Mundo");
-let numeroSecreto = 4;
+alert("Olá Mundo");
+let numeroSecreto = Math.random(0,10);
 console.log(numeroSecreto);
 let chute;
 let cont = 1
