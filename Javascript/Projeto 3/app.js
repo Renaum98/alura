@@ -1,19 +1,68 @@
+let = listaDeNumerosSorteados = []
+let numeroLimite = 10;
 let numeroSecreto = gerarNumeroAleatorio();
+var cont = 1
+
 
 
 function exibirTextoNaTela(tag,texto){
     let campo = document.querySelector(tag);
     campo.innerHTML = texto;
+    responsiveVoice.speak(texto, 'Brazilian Portuguese Female', {rate:1.2});
 };
 
-exibirTextoNaTela('h1', 'Jogo do número secreto');
-exibirTextoNaTela('p', 'Escolha um número entre 1 e 10');
+function exibirMensagemInicial() {
+    exibirTextoNaTela('h1', 'Jogo do número secreto');
+    exibirTextoNaTela('p', 'Escolha um número entre 1 e 10');
+}
+
+exibirMensagemInicial();
+
 
 function verificarChute(){
     let chute = document.querySelector('input').value;
-    console.log(chute == numeroSecreto ? 'Você acertou':'Não é o numero certo');
-};
+    if (chute == numeroSecreto){
+        exibirTextoNaTela('h1','Acertou!');
+        let palavraTentativa = cont > 1 ? 'tentativas':'tentativa';
+        let msgTentativas = `Você descobriu o numero secreto após ${cont} ${palavraTentativa}!`;
+        exibirTextoNaTela('p', msgTentativas);
+        document.getElementById('reiniciar').removeAttribute('disabled');
+    }else{
+        if(chute > numeroSecreto){
+            exibirTextoNaTela('p','O numero é menor que o chute.');
+        }else{
+            exibirTextoNaTela('p','O numero é maior que o chute.');
+        }
+        cont++; 
+        limparCampo();
+    }
+}
 
 function gerarNumeroAleatorio() {
-    return parseInt(Math.random() * 10 + 1); 
+    let numeroEscolhido = parseInt(Math.random() * numeroLimite + 1);
+    let quantidadeDeElementosNaLista = listaDeNumerosSorteados.length;
+
+    if (quantidadeDeElementosNaLista == numeroLimite) {
+        listaDeNumerosSorteados = [];
+    }
+
+    if (listaDeNumerosSorteados.includes(numeroEscolhido)){
+        return gerarNumeroAleatorio();
+    } else {
+        listaDeNumerosSorteados.push(numeroEscolhido);
+        console.log(listaDeNumerosSorteados)
+        return numeroEscolhido;
+    }
+}
+function limparCampo() {
+    chute = document.querySelector('input');
+    chute.value = '';
+}
+
+function reiniciarJogo() {
+    numeroSecreto = gerarNumeroAleatorio();
+    limparCampo();
+    cont = 1;
+    exibirMensagemInicial();
+    document.getElementById('reiniciar').setAttribute('disabled',true);
 }
