@@ -29,12 +29,28 @@ function sortear(){
     let resultadoLista = document.querySelector('#resultado');
     //Apresentando o valor gerado no HTML 
     resultadoLista.innerHTML = `<label class="texto__paragrafo">Números sorteados:  ${listaSorteados}</label>`;
+    alterarStatusBotão();
 }
 
 function obterNumeroAleatorio(min,max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function reiniciar(){
-    
+function alterarStatusBotão(){
+    const btReiniciar = document.getElementById('btn-reiniciar');
+    if (btReiniciar.classList.contains('container__botao-desabilitado')) {
+        btReiniciar.classList.remove('container__botao-desabilitado');
+        btReiniciar.classList.add('container__botao');
+    }else{
+        btReiniciar.classList.remove('container__botao');
+        btReiniciar.classList.add('container__botao-desabilitado');
+    }
+}
+
+function reiniciar() {
+    document.querySelector('#quantidade').value = '';
+    document.querySelector('#ate').value = '';
+    document.querySelector('#de').value = '';
+    document.getElementById('resultado').innerHTML = '<label class="texto__paragrafo">Números sorteados:  nenhum até agora</label>';
+    alterarStatusBotão();
 }
