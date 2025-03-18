@@ -23,7 +23,7 @@ def exibir_nome_programa():
 def exibir_opcoes():
       print('1. Cadastrar restaurante')
       print('2. Listar restaurante')
-      print('3. Ativar restaurante')
+      print('3. Alternar estado do restaurante')
       print('4. Sair\n')
 
 def escolher_opcao():
@@ -39,6 +39,7 @@ def escolher_opcao():
                   listar_restaurantes()
             elif opc == 3:
                   print('Ativar restaurante')
+                  ativar_desativar()
             elif opc == 4:
                   finalizar_app()
             else:
@@ -52,18 +53,21 @@ def opcao_invalida():
 
 def exibir_subtitulo(texto):
       os.system('cls')
+      linha = '*' * (len(texto))
+      print(linha)
       print(texto)
+      print(linha)
       print()
 
 def listar_restaurantes():
       exibir_subtitulo('Listando restaurantes')
-
+      print(f'{'Nome do restaurante'.ljust(22)} | {'Categoria'.ljust(20)} | {'Status'}')
       for index,restaurante in enumerate(restaurantes):
             nome_restaurante = restaurante['nome']
             categoria = restaurante['categoria']
-            situacao = restaurante['ativo']
+            situacao = 'Ativado' if restaurante['ativo'] else 'Desativado'
 
-            print(f'{index}.{nome_restaurante} | {categoria} | {situacao}')
+            print(f'{index}.{nome_restaurante.ljust(20)} | {categoria.ljust(20)} | {situacao}')
 
       voltar_menu()
 
@@ -81,6 +85,24 @@ def cadastrar_novo_restaurante():
 
       print(f'Restaurante {nome_restaurante} cadastrado com sucesso.')
 
+      voltar_menu()
+
+def ativar_desativar():
+      exibir_subtitulo('Alternando estado do restaurante')
+
+      nome_restaurante = input('Digite o nome do restaurante que dejesa alternar o estado: ').strip().title()
+      restaurante_encontrado = False
+
+      for restaurante in restaurantes:
+            if nome_restaurante == restaurante['nome']:
+                  restaurante_encontrado = True
+                  restaurante['ativo'] = not restaurante['ativo']
+                  mensagem = f'O restaurante {nome_restaurante} foi ativado com sucesso' if restaurante['nome'] else f'O restaurante {nome_restaurante} foi desativado com sucesso'
+                  print(mensagem)
+
+      if not restaurante_encontrado:
+            print('O restaurante não foi encontrado')
+      
       voltar_menu()
 
 def voltar_menu():
