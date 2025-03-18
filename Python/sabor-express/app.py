@@ -1,6 +1,8 @@
 import os
 
-restaurantes = ['Sushi Plus','Pizza Express']
+restaurantes = [{'nome':'Praça','categoria':'Japonesa','ativo':False},
+                {'nome':'Pizza Suprema','categoria':'Italiana','ativo':True},
+                {'nome':'Sr Arabe','categoria':'Arabe','ativo':True}]
 
 def exibir_nome_programa():
       print('''
@@ -55,9 +57,13 @@ def exibir_subtitulo(texto):
 
 def listar_restaurantes():
       exibir_subtitulo('Listando restaurantes')
-      
+
       for index,restaurante in enumerate(restaurantes):
-            print(f'{index}.{restaurante}')
+            nome_restaurante = restaurante['nome']
+            categoria = restaurante['categoria']
+            situacao = restaurante['ativo']
+
+            print(f'{index}.{nome_restaurante} | {categoria} | {situacao}')
 
       voltar_menu()
 
@@ -65,7 +71,14 @@ def cadastrar_novo_restaurante():
       exibir_subtitulo('Cadastro de novos restaurantes')
 
       nome_restaurante = input('\nDigite o nome do resturante que deseja cadastras: ').title().strip()
-      restaurantes.append(nome_restaurante)
+      categoria = input(f'Digite a categoria do restaurante {nome_restaurante}: ').title().strip()
+
+      dados_do_restaurante = {'nome':nome_restaurante,
+                              'categoria':categoria,
+                              'ativo':False}
+
+      restaurantes.append(dados_do_restaurante)
+
       print(f'Restaurante {nome_restaurante} cadastrado com sucesso.')
 
       voltar_menu()
