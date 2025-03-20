@@ -5,6 +5,7 @@ restaurantes = [{'nome':'Praça','categoria':'Japonesa','ativo':False},
                 {'nome':'Sr Arabe','categoria':'Arabe','ativo':True}]
 
 def exibir_nome_programa():
+      '''Exibe o titulo do programa com um print'''
       print('''
 ░██████╗░█████╗░██████╗░░█████╗░██████╗░
 ██╔════╝██╔══██╗██╔══██╗██╔══██╗██╔══██╗
@@ -21,12 +22,14 @@ def exibir_nome_programa():
 ╚══════╝╚═╝░░╚═╝╚═╝░░░░░╚═╝░░╚═╝╚══════╝╚═════╝░╚═════╝░''')
 
 def exibir_opcoes():
+      '''Exibe as opções possiveis para serem escolhidas pelo usuario'''
       print('1. Cadastrar restaurante')
       print('2. Listar restaurante')
       print('3. Alternar estado do restaurante')
       print('4. Sair\n')
 
 def escolher_opcao():
+      '''Roda o programa com base na escolha do usuario com uma condicional'''
       try:
             opc = int(input('Escolha uma opção: '))
             print(f'\nVocê escolheu a opcção: {opc}')
@@ -48,10 +51,12 @@ def escolher_opcao():
             opcao_invalida()
 
 def opcao_invalida():
+      '''Caso houver alguma opção invalida ou não existente, a mensagem é exibida'''
       print('Opcão invalida!\n')
       voltar_menu()
 
 def exibir_subtitulo(texto):
+      '''Exibe o subtitulo ja formatado'''
       os.system('cls')
       linha = '*' * (len(texto))
       print(linha)
@@ -99,6 +104,7 @@ def cadastrar_novo_restaurante():
       voltar_menu()
 
 def ativar_desativar():
+      '''Ativa ou desativa restaurantes'''
       exibir_subtitulo('Alternando estado do restaurante')
 
       nome_restaurante = input('Digite o nome do restaurante que dejesa alternar o estado: ').strip().title()
@@ -117,13 +123,16 @@ def ativar_desativar():
       voltar_menu()
 
 def voltar_menu():
+      '''volta ao menu principal chamando a função main()'''
       input('\nDigite qualquer tecla para voltar ao menu.: ')
       main()
 
 def finalizar_app():
+      '''Finaliza a aplicação'''
       exibir_subtitulo('Finalizando o app')
 
 def main():
+    '''Função para resetar ou iniciar o sistema sempre que chamada'''
     os.system('cls')
     exibir_nome_programa()
     exibir_opcoes()
