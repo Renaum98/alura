@@ -123,7 +123,7 @@ def ativar_desativar():
       voltar_menu()
 
 def voltar_menu():
-      '''volta ao menu principal chamando a função main()'''
+      '''Volta ao menu principal chamando a função main()'''
       input('\nDigite qualquer tecla para voltar ao menu.: ')
       main()
 
