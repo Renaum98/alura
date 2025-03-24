@@ -17,6 +17,7 @@ class Restaurante:
     def __str__(self):
         '''Modifica a forma de saida do objeto para string'''
         return f'{self._nome} | {self._categoria}'
+    
     @classmethod
     def listar_restaurante(cls):
         print(f'{"Nome do Restaurante".ljust(25)} | {"Categoria".ljust(25)} | {'Avaliação'.ljust(25)} | {"Status"}')
