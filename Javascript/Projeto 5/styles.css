@@ -111,6 +111,11 @@ textarea{
     height: 161px;
 }
 
+.lista-tags{
+    display: flex;
+    gap: 10px;
+}
+
 .lista-tags li{
     display: flex;
     background-color: var(--secondary-color);

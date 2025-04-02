@@ -54,7 +54,7 @@
             </div>
             <button id="upload-btn">Carregar imagem</button>
             <input type="file" id="image-upload" accept="image/" style="display: none;">
-            <div class="container-imagem-nome">
+            <div class="container-imagem-name">
                 <p>image_projeto.png</p>
                 <img src="img/close.svg" alt="">
             </div>
@@ -72,13 +72,10 @@
                     </div>
                     <div>
                             <label for="categoria">Tags</label>
-                            <input type="text" id="categoria" name="categoria" />
+                            <input type="text" name="categoria" id="input-tags"/>
                     </div>
-                    <ul class="lista-tags">
-                            <li>
-                                <p>Front-end</p>
-                                <img src="./img/close-black.svg">
-                            </li>
+                    <ul class="lista-tags" id="lista-tags">
+                            <!--Aqui vai as tags adicionadas com JS-->
                     </ul>
                     <div class="container-botoes">
                             <button class="botao-descartar">Descartar</button>
