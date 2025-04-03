@@ -1,4 +1,5 @@
 const uploadBtn = document.getElementById("upload-btn");
+
 const inputUpload = document.getElementById("image-upload")
 
 uploadBtn.addEventListener("click", () => {
@@ -17,8 +18,9 @@ function lerConteudoDoArquivo(arquivo) {
     })
 }
 
-const imagemPrincipal = document.querySelector('.main-imagem')
-const nomeDaImagem = document.querySelector('.container-imagem-name p')
+const imagemPrincipal = document.querySelector('.main-imagem');
+
+const nomeDaImagem = document.querySelector('.container-imagem-name p');
 
 inputUpload.addEventListener("change", async (evento) => {
     const arquivo = evento.target.files[0];
@@ -35,6 +37,7 @@ inputUpload.addEventListener("change", async (evento) => {
 })
 
 const inputTags = document.getElementById('input-tags');
+
 const listaTags = document.getElementById('lista-tags');
 
 listaTags.addEventListener("click", (evento) => {
@@ -50,7 +53,7 @@ async function verificaTagsDisaponiveis(tagTexto){
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve(tagsDisponiveis.includes(tagTexto))
-        }, 1000);
+        }, 500);
     })
 }
 
@@ -78,13 +81,47 @@ inputTags.addEventListener("keypress", async (evento) => {
 })
 
 const botaoPublicar = document.querySelector('.botao-publicar');
+
+function publicarProjeto(nomePdojeto, descricaoProjeto, tagsProjeto) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            const deuCerto = Math.random() > 0.5;
+
+            if (deuCerto) {
+                resolve('Projeto publicado com sucesso.');
+            }else{
+                reject('Erro ao publicar o projeto.');
+            }
+        }, 2000);
+    })
+}
+
 botaoPublicar.addEventListener("click",async (evento) => {
     evento.preventDefault();
 
     const nomeDoProjeto = document.getElementById("nome").value;
     const descricaoProjeto = document.getElementById("descricao").value;
     const tagsProjeto = Array.from(listaTags.querySelectorAll("p")).map((tag) => tag.textContent);
-    console.log(nomeDoProjeto);
-    console.log(descricaoProjeto);
-    console.log(tagsProjeto);
+
+    try {
+        const resultado = await publicarProjeto(nomeDoProjeto, descricaoProjeto, tagsProjeto)
+        console.log(resultado);
+        alert('Deu tudo certo!')
+    } catch (error) {
+        console.log('Deu erro:' , error)
+        alert('Deu tudo errado!')
+    }
+})
+
+const botaoDescartar = document.querySelector('.botao-descartar');
+
+botaoDescartar.addEventListener("click", (evento) => {
+    evento.preventDefault();
+
+    const formulario = document.querySelector('form');
+    formulario.reset();
+
+    imagemPrincipal.src = "./img/imagem1.png";
+    nomeDaImagem.textContent = "image_projeto.png";
+    listaTags.innerHTML = ""
 })
