@@ -32,7 +32,7 @@ html {
 
 body {
     min-height: 100vh;
-    background: url("/imagens/pattern.png");
+    background: url("imagens/pattern.png");
     background-size: cover;
     background-repeat: no-repeat;
 }
@@ -79,6 +79,7 @@ h1, h2, h3, h4, h5, h6 {
     border-radius: 3.2rem;
     border: 0.2rem solid var(--azul-royal);
     background: var(--fundo-card-timer);
+    backdrop-filter: blur(10px);
     padding: 2.4rem;
     margin: 8rem 0;
     width: 59rem;
