@@ -1,0 +1,32 @@
+.categorias__list {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto auto;
+    grid-template-areas: 
+    "roupas roupas decoracao"
+    "canecas canecas acessorios";
+    gap: 24px;
+    list-style-type: none;
+}
+
+.categorias__list_item-roupas{
+    grid-area: roupas;
+}
+
+.categorias__list_item-decoracao{
+    grid-area: decoracao;
+}
+
+.categorias__list_item-canecas{
+    grid-template-areas: canecas;
+}
+
+.categorias__list_item-acessorios{
+    grid-area: acessorios;
+}
+
+.categorias__list_item_container img {
+    height: 331px;
+    width: 100%;
+    object-fit: contain;
+}

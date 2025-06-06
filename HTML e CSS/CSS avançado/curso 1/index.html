@@ -16,7 +16,83 @@
 <link rel="stylesheet" href="css/rodape.css">
 </head>
 <body>
-   
-    
+
+    <header class="cabecalho">
+        <nav class="cabecalho__nav">
+            <ul class="cabecalho__nav_list">
+                <li>
+                    <h1 class="cabecalho__logo">
+                        <img src="assets/icons/logo.svg" alt="logo da use dev">
+                    </h1>
+                </li>
+                <li class="cabecalho__nav_list_item">
+                    <a href="#" class="cabecalho__nav_list_link">
+                        Sobre nós
+                    </a>
+                </li>
+                <li class="cabecalho__nav_list_item cabecalho__nav_list_item-input">
+                    <input 
+                    type="search" 
+                    id="search" 
+                    placeholder="O que você procura?" 
+                    class="cabecalho__nav_list_input">
+                    <img src="assets/icons/search.svg" alt="lupa" class="pesquisa-icon">
+                </li>
+                <li class="cabecalho__nav_list_item">
+                    <a href="#" class="cabecalho__nav_list_link cabecalho__nav_list_link-login">Login</a>
+                </li>
+                <li class="cabecalho__nav_list_item">
+                    <a href="#" class="cabecalho__nav_list_link cabecalho__nav_list_link-perfil">
+                        <img src="assets/icons/perfil.svg" alt="icone pessoa">
+                    </a>
+                </li>
+                <li class="cabecalho__nav_list_item">
+                    <a href="#" class="cabecalho__nav_list_link cabecalho__nav_list_link-carrinho">
+                        <img src="assets/icons/carrinho.svg" alt="icone carrinho">
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <section class="banner">
+        <img src="assets/banner.png" alt="Banner da use dev" class="banner__imagem">
+        <div class="banner__container">
+            <h2 class="banner__container-titulo">Hora de Abraçar <span>o seu lado geek!</span></h2>
+            <button class="banner__container-botao">Ver as novidades</button>
+        </div>
+    </section>
+    <section class="categorias">
+        <h3 class="categorias__titulo">Categorias</h3>
+        <p class="categorias__texto">De roupas a gadgets tecnológicos, temos tudo para atender duas paixões e hobbies com estilo e autencididade.</p>
+        <ul class="categorias__list">
+            <li class="categorias__list_item categorias__list_item-roupas">
+                <div class="categorias__list_item_container">
+                    <img src="assets/roupas.png" alt="roupas">
+                </div>
+                <h4 class="categorias__list_item_titulo">Roupas</h4>
+            </li>
+
+            <li class="categorias__list_item categorias__list_item-decoracao">
+                <div class="categorias__list_item_container">
+                    <img src="assets/decoracao.png" alt="decoracao">
+                </div>
+                <h4 class="categorias__list_item_titulo">Decoração</h4>
+            </li>
+
+            <li class="categorias__list_item categorias__list_item-canecas">
+                <div class="categorias__list_item_container">
+                    <img src="assets/canecas.png" alt="canecas">
+                </div>
+                <h4 class="categorias__list_item_titulo">Canecas</h4>
+            </li>
+
+            <li class="categorias__list_item categorias__list_item-acessorios">
+                <div class="categorias__list_item_container">
+                    <img src="assets/acessorios.png" alt="acessorios">
+                </div>
+                <h4 class="categorias__list_item_titulo">Acessorios</h4>
+            </li>
+        </ul>
+    </section>
 </body>
 </html>
