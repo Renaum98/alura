@@ -3,4 +3,5 @@
     height: 2em;
     background-image: url(../images/tarjeta.png);
     background-repeat: no-repeat;
+    background-position: center;
 }
