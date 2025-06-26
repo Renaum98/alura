@@ -59,6 +59,11 @@ body {
 .container {
   width: 1192px;
   margin: 0 auto;
+
+
+  @media screen and (max-width: 768px) {
+    width: 674px;
+  }
 }
 
 .cabecalho {
