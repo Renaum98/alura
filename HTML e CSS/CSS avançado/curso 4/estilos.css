@@ -95,14 +95,36 @@ body {
   text-decoration: none;
   transition: 0.2s ease-in;
 
+  @media screen and (max-width: 768px) {
+    font-size: var(--fonte-size-s);
+  }
+
   &:hover {
     color: var(--cor-destaque-roxo);
+  }
+}
+
+.cabecalho__item:nth-child(6){
+  display: none;
+
+  @media screen and (max-width: 768px) {
+    display: inline;
   }
 }
 
 .cabecalho__botoes {
   display: flex;
   gap: var(--gap-s);
+
+  @media (max-width: 768px) {
+    & > a.btn__primario {
+      text-align: center;
+    }
+
+    & > a.btn__secundario {
+      display: none;
+    }
+  }
 }
 
 .cabecalho__botoes > a {
@@ -152,6 +174,12 @@ body {
   display: flex;
   justify-content: space-between;
   padding: 5.5rem 0;
+
+  @media (max-width: 768px) {
+    & > .banner__imagem {
+      display: none;
+    }
+  }
 }
 
 .banner__texto-principal {
@@ -159,6 +187,12 @@ body {
   flex-direction: column;
   gap: var(--gap-xl);
   align-items: self-start;
+
+  @media (max-width: 768px) {
+    align-items: center;
+    text-align: center;
+    padding: 0 5.5rem;
+  }
 }
 
 .banner__titulo {
