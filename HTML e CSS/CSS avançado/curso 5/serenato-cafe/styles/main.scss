@@ -1,4 +1,8 @@
-body {
-    background-color: blue;
-    color: white;
-}
+@use 'base/reset';
+@use 'base/variables';
+@use 'layout/header';
+@use 'components/cards';
+@use 'components/buttons';
+@use 'components/forms';
+@use 'pages/home';
+@use 'utils/mixins';
