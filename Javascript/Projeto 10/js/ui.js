@@ -21,12 +21,12 @@ const ui = {
     try {
       let pensamentosParaRenderizar
 
-      if (pensamentosFiltrados) {
+      if(pensamentosFiltrados) {
         pensamentosParaRenderizar = pensamentosFiltrados
       } else {
         pensamentosParaRenderizar = await api.buscarPensamentos()
       }
-
+      
       if (pensamentosParaRenderizar.length === 0) {
         mensagemVazia.style.display = "block"
       } else {
@@ -83,8 +83,17 @@ const ui = {
     iconeExcluir.alt = "Excluir"
     botaoExcluir.appendChild(iconeExcluir)
 
+    const botaoFavorito = document.createElement("button")
+    botaoFavorito.classList.add("botao-favorito")
+
+    const iconeFavorito = document.createElement("img")
+    iconeFavorito.src = pensamento.favorito ? "assets/imagens/icone-favorito.png":"assets/imagens/icone-favorito_outline.png"
+    iconeFavorito.alt = "Icone de favorito"
+    botaoFavorito.appendChild(iconeFavorito)
+
     const icones = document.createElement("div")
     icones.classList.add("icones")
+    icones.appendChild(botaoFavorito)
     icones.appendChild(botaoEditar)
     icones.appendChild(botaoExcluir)
 

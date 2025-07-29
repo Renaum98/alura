@@ -35,13 +35,13 @@ function manipularCancelamento() {
   ui.limparFormulario()
 }
 
-async function manipularBusca(){
+async function manipularBusca() {
   const termoBusca = document.getElementById("campo-busca").value
   try {
-    const pensamentosFiltrados = await api.buscarPensamentoPorTermo(termoBusca)
+    const pensamentosFiltrados = await api.buscarPensamentosPorTermo(termoBusca)
+    console.log(pensamentosFiltrados)
     ui.renderizarPensamentos(pensamentosFiltrados)
-  } 
-  catch (error) {
-    alert("Error ao realizar busca")
+  } catch (error) {
+    alert("Erro ao realizar busca")
   }
 }
