@@ -18,12 +18,17 @@ async function manipularSubmissaoFormulario(event) {
   const id = document.getElementById("pensamento-id").value
   const conteudo = document.getElementById("pensamento-conteudo").value
   const autoria = document.getElementById("pensamento-autoria").value
+  const data = document.getElementById("pensamento-data")//pega o campo(input) data na aplicação  
+  
+  if (!validarData(data)) {
+    alert("Não é permitido o cadastro de datas futuras.")
+  } //o evento so ocorrera se a data nao for validada
 
   try {
     if (id) {
-      await api.editarPensamento({ id, conteudo, autoria })
+      await api.editarPensamento({ id, conteudo, autoria, data })
     } else {
-      await api.salvarPensamento({ conteudo, autoria })
+      await api.salvarPensamento({ conteudo, autoria, data })
     }
     ui.renderizarPensamentos()
   } catch {
@@ -44,4 +49,11 @@ async function manipularBusca() {
   } catch (error) {
     alert("Erro ao realizar busca")
   }
+}
+
+//função para validar a data não permitindo que seja selecionado uma data futura
+function validarData(data) {
+  const dataAtual = new Date()//metodo construtor para pegar uma data, se ficar em branco ira pegar a data atual
+  const dataInserida = new Date(data)
+  return dataInserida <= dataAtual //so ira retornar a dataInserida se for igual ou menor que a atual
 }
