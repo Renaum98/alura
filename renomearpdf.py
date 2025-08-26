@@ -5,6 +5,8 @@ import fitz  # PyMuPDF
 from pdf2image import convert_from_path
 from tkinter import filedialog, Tk
 import shutil
+import unicodedata
+from PIL import Image, ImageEnhance, ImageFilter
 
 # Configuração do caminho do Tesseract OCR
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
@@ -17,10 +19,47 @@ def selecionar_pasta():
     root.withdraw()
     return filedialog.askdirectory(title="Selecione a pasta com os PDFs")
 
+def limpar_texto(texto):
+    texto = unicodedata.normalize('NFKD', texto)
+    texto = re.sub(r'\s+', ' ', texto)
+    texto = texto.replace('\x0c', '')
+    return texto.strip()
+
 def extrair_numero_nota(texto):
-    # Ajuste a regex conforme seu padrão de número da nota
-    match = re.search(r'(?:Nº|Nota Fiscal|NF)[^\d]{0,10}(\d{4,})', texto, re.IGNORECASE)
-    return match.group(1) if match else None
+    texto = limpar_texto(texto).upper()
+
+    if "RPS" in texto:
+        return None
+
+    # Aceita números simples (123456) ou formatados (000.000.123)
+    pattern = re.compile(
+    r'(?:NOTA\s*FISCAL(?:\s*ELETR[ÔO]NICA)?|NOTA\s*ELETR[ÔO]NICA\s*N[ºO]?|NF(?:-E)?|N[ºO])'
+    r'(?:\s*[:.\-–]?\s*|\n\s*)([\d.\s]{2,20})',
+    re.IGNORECASE | re.DOTALL
+    )
+
+    match = pattern.search(texto)
+    if match:
+        numero = re.sub(r'\D', '', match.group(1))  # remove pontos/espacos
+        if numero:
+
+            if len(numero) < 3:   # <<<<< AQUI entra a regra nova
+                return None
+            
+            numero_int = int(numero)
+            if numero_int > 0:
+                return str(numero_int)
+    return None
+
+
+
+def melhorar_imagem(img):
+    img = img.convert('L')
+    enhancer = ImageEnhance.Contrast(img)
+    img = enhancer.enhance(2)
+    img = img.filter(ImageFilter.MedianFilter(3))
+    img = img.point(lambda p: 255 if p > 128 else 0)
+    return img
 
 def extrair_texto(pdf_path):
     texto_extraido = ""
@@ -36,15 +75,26 @@ def extrair_texto(pdf_path):
     except Exception as e:
         print(f"Erro ao extrair texto com PyMuPDF em {pdf_path}: {e}")
 
-    # Se não extraiu texto, tenta OCR
     try:
-        imagens = convert_from_path(pdf_path, dpi=300, poppler_path=POPPLER_PATH)
+        imagens = convert_from_path(pdf_path, dpi=600, poppler_path=POPPLER_PATH)
+
         for img in imagens:
+            img = melhorar_imagem(img)
             texto_extraido += pytesseract.image_to_string(img, lang='por')
     except Exception as e:
         print(f"OCR falhou para {pdf_path}: {e}")
 
     return texto_extraido
+
+def gerar_nome_nao_encontrado(pasta):
+    base = "nao encontrado"
+    ext = ".pdf"
+    contador = 1
+    nome = base + ext
+    while os.path.exists(os.path.join(pasta, nome)):
+        nome = f"{base}_{contador}{ext}"
+        contador += 1
+    return nome
 
 def renomear_pdfs_na_pasta(pasta):
     arquivos = [f for f in os.listdir(pasta) if f.lower().endswith(".pdf")]
@@ -58,16 +108,18 @@ def renomear_pdfs_na_pasta(pasta):
 
         if numero_nota:
             novo_nome = f"{numero_nota}.pdf"
-            caminho_novo = os.path.join(pasta, novo_nome)
-
-            if os.path.exists(caminho_novo):
-                print(f"Arquivo com número {numero_nota} já existe. Pulando.")
-                continue
-
-            shutil.move(caminho_original, caminho_novo)
-            print(f"Renomeado para: {novo_nome}")
         else:
             print(f"⚠️ Número da nota não encontrado em: {arquivo}")
+            novo_nome = gerar_nome_nao_encontrado(pasta)
+
+        caminho_novo = os.path.join(pasta, novo_nome)
+
+        if os.path.exists(caminho_novo):
+            print(f"Arquivo {novo_nome} já existe. Pulando.")
+            continue
+
+        shutil.move(caminho_original, caminho_novo)
+        print(f"Renomeado para: {novo_nome}")
 
 def main():
     pasta = selecionar_pasta()
