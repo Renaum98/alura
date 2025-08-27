@@ -34,7 +34,7 @@ def extrair_numero_nota(texto):
     # Aceita números simples (123456) ou formatados (000.000.123)
     pattern = re.compile(
     r'(?:NOTA\s*FISCAL(?:\s*ELETR[ÔO]NICA)?|NOTA\s*ELETR[ÔO]NICA\s*N[ºO]?|NF(?:-E)?|N[ºO])'
-    r'(?:\s*[:.\-–]?\s*|\n\s*)([\d.\s]{3,20})',
+    r'(?:\s*[.:\-–]?\s*|\n\s*)([\d.\s]{3,15})',
     re.IGNORECASE | re.DOTALL
     )
 
