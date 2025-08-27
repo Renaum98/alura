@@ -14,6 +14,10 @@ pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tessera
 # Caminho para a pasta bin do Poppler (ajuste conforme onde extraiu)
 POPPLER_PATH = r"C:\Users\user\Downloads\poppler-25.07.0\Library\bin"
 
+# --------------------------------------------
+# Funções utilitárias
+# --------------------------------------------
+
 def selecionar_pasta():
     root = Tk()
     root.withdraw()
@@ -25,33 +29,9 @@ def limpar_texto(texto):
     texto = texto.replace('\x0c', '')
     return texto.strip()
 
-def extrair_numero_nota(texto):
-    texto = limpar_texto(texto).upper()
-
-    if "RPS" in texto:
-        return None
-
-    # Aceita números simples (123456) ou formatados (000.000.123)
-    pattern = re.compile(
-    r'(?:NOTA\s*FISCAL(?:\s*ELETR[ÔO]NICA)?|NOTA\s*ELETR[ÔO]NICA\s*N[ºO]?|NF(?:-E)?|N[ºO])'
-    r'(?:\s*[.:\-–]?\s*|\n\s*)([\d.\s]{3,15})',
-    re.IGNORECASE | re.DOTALL
-    )
-
-    match = pattern.search(texto)
-    if match:
-        numero = re.sub(r'\D', '', match.group(1))  # remove pontos/espacos
-        if numero:
-
-            if len(numero) < 3:   # <<<<< AQUI entra a regra nova
-                return None
-            
-            numero_int = int(numero)
-            if numero_int > 0:
-                return str(numero_int)
-    return None
-
-
+# --------------------------------------------
+# OCR e extração de texto
+# --------------------------------------------
 
 def melhorar_imagem(img):
     img = img.convert('L')
@@ -86,6 +66,47 @@ def extrair_texto(pdf_path):
 
     return texto_extraido
 
+# --------------------------------------------
+# Extração do número da NF
+# --------------------------------------------
+
+def extrair_numero_nota(texto):
+    texto = limpar_texto(texto).upper()
+
+    if "RPS" in texto:
+        return None
+
+    # Aceita números simples (123456) ou formatados (000.000.123)
+    pattern = re.compile(
+        r'(?:NOTA\s*FISCAL(?:\s*ELETR[ÔO]NICA)?|NOTA\s*ELETR[ÔO]NICA\s*N[ºO]?|NF(?:-E)?|N[ºO])'
+        r'(?:\s*[.:\-–]?\s*|\n\s*)([\d.\s]{3,15})',
+        re.IGNORECASE | re.DOTALL
+    )
+
+    match = pattern.search(texto)
+    if match:
+        numero = re.sub(r'\D', '', match.group(1))  # remove pontos/espacos
+        if numero:
+            if len(numero) < 2:
+                return None
+            numero_int = int(numero)
+            if numero_int > 0:
+                return str(numero_int)
+    return None
+
+# --------------------------------------------
+# Processamento dos PDFs
+# --------------------------------------------
+
+def processar_pdf(pdf_path):
+    texto = extrair_texto(pdf_path)
+    numero_nota = extrair_numero_nota(texto)
+    return numero_nota
+
+# --------------------------------------------
+# Manipulação de arquivos
+# --------------------------------------------
+
 def gerar_nome_nao_encontrado(pasta):
     base = "nao encontrado"
     ext = ".pdf"
@@ -101,10 +122,9 @@ def renomear_pdfs_na_pasta(pasta):
 
     for arquivo in arquivos:
         caminho_original = os.path.join(pasta, arquivo)
-        print(f"Processando: {arquivo}")
+        print(f"\n📂 Processando: {arquivo}")
 
-        texto = extrair_texto(caminho_original)
-        numero_nota = extrair_numero_nota(texto)
+        numero_nota = processar_pdf(caminho_original)
 
         if numero_nota:
             novo_nome = f"{numero_nota}.pdf"
@@ -115,11 +135,15 @@ def renomear_pdfs_na_pasta(pasta):
         caminho_novo = os.path.join(pasta, novo_nome)
 
         if os.path.exists(caminho_novo):
-            print(f"Arquivo {novo_nome} já existe. Pulando.")
+            print(f"⚠️ Arquivo {novo_nome} já existe. Pulando.")
             continue
 
         shutil.move(caminho_original, caminho_novo)
-        print(f"Renomeado para: {novo_nome}")
+        print(f"✅ Renomeado para: {novo_nome}")
+
+# --------------------------------------------
+# Ponto de entrada
+# --------------------------------------------
 
 def main():
     pasta = selecionar_pasta()
