@@ -12,7 +12,7 @@ from PIL import Image, ImageEnhance, ImageFilter
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
 # Caminho para a pasta bin do Poppler (ajuste conforme onde extraiu)
-POPPLER_PATH = r"C:\Users\user\Downloads\poppler-25.07.0\bin"
+POPPLER_PATH = r"C:\Users\user\Downloads\poppler-25.07.0\Library\bin"
 
 def selecionar_pasta():
     root = Tk()
@@ -34,7 +34,7 @@ def extrair_numero_nota(texto):
     # Aceita números simples (123456) ou formatados (000.000.123)
     pattern = re.compile(
     r'(?:NOTA\s*FISCAL(?:\s*ELETR[ÔO]NICA)?|NOTA\s*ELETR[ÔO]NICA\s*N[ºO]?|NF(?:-E)?|N[ºO])'
-    r'(?:\s*[:.\-–]?\s*|\n\s*)([\d.\s]{2,20})',
+    r'(?:\s*[:.\-–]?\s*|\n\s*)([\d.\s]{3,20})',
     re.IGNORECASE | re.DOTALL
     )
 
