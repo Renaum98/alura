@@ -1,12 +1,6 @@
 {
   "pensamentos": [
     {
-      "id": "2a56",
-      "conteudo": "Vc faz TI? Conserta meu celular!",
-      "autoria": "Grupo da família",
-      "data": {}
-    },
-    {
       "id": "4c7d",
       "favorito": true,
       "conteudo": "Da vida reclama, mas sem ela não vive!",
@@ -21,20 +15,6 @@
       "data": "2025-02-10T10:10:00Z"
     },
     {
-      "id": "b807",
-      "favorito": false,
-      "conteudo": "Melhor professor, o fracasso é!",
-      "autoria": "Mestre Yoda",
-      "data": "2025-06-05T10:15:00Z"
-    },
-    {
-      "id": "6a2b",
-      "favorito": false,
-      "conteudo": "Foi sem querer querendo!",
-      "autoria": "Chaves",
-      "data": "2025-05-07T10:20:00Z"
-    },
-    {
       "id": "7e2a",
       "favorito": false,
       "conteudo": "Que a força esteja com você!",
@@ -42,11 +22,28 @@
       "data": "2025-08-14T10:25:00Z"
     },
     {
-      "id": "3f1a",
-      "favorito": false,
-      "conteudo": "Conserta minha impressora?",
-      "autoria": "Grupo da família",
-      "data": "2025-08-12T10:30:00Z"
+      "id": "faec",
+      "conteudo": "Ola Tduo bem",
+      "autoria": "Rena",
+      "data": "2025-10-29T00:00:00.000Z"
+    },
+    {
+      "id": "455e",
+      "conteudo": "ola udo bem amiot",
+      "autoria": "abdu",
+      "data": "2025-10-30T00:00:00.000Z"
+    },
+    {
+      "id": "a8d9",
+      "conteudo": "ola udo bem amiot",
+      "autoria": "abdut",
+      "data": "2025-10-02T00:00:00.000Z"
+    },
+    {
+      "id": "378d",
+      "conteudo": "ola tudo bem",
+      "autoria": "dev",
+      "data": "2025-10-28T00:00:00.000Z"
     }
   ]
 }
